@@ -54,7 +54,7 @@ class RxBus private constructor() {
         return _mBackPressureBus.ofType(eventType)
 
     }
-    
+
 
     companion object {
 
