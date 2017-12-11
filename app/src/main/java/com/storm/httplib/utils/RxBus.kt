@@ -17,7 +17,6 @@ import org.reactivestreams.Subscriber
  */
 class RxBus private constructor() {
 
-
     private val _mBus: Subject<Any>
 
     private val _mBackPressureBus: FlowableProcessor<Any>
@@ -30,19 +29,16 @@ class RxBus private constructor() {
         _mBackPressureBus = PublishProcessor.create<Any>().toSerialized()
     }
 
-
     /**
      * 发送普通事件
      */
     fun send(event: Any) = _mBus.onNext(event)
-
 
     /**
      * 发送背压事件
      */
     fun sendByBackPressure(event: Any) =
             _mBackPressureBus.onNext(event)
-
 
     /**
      * 接收普通事件
@@ -73,7 +69,6 @@ class RxBus private constructor() {
 
     }
 
-
     /**
      * 背压事件的处理
      */
@@ -87,7 +82,6 @@ class RxBus private constructor() {
         return toFlowable(eventType)
 
     }
-
 
     /**
      * 是否有订阅者
@@ -106,7 +100,6 @@ class RxBus private constructor() {
      * 背压解除订阅
      */
     fun unSubscription() = _mBackPressureBus.onComplete()
-
 
     /**
      * 添加订阅到集合(一般事件)

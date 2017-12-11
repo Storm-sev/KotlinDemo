@@ -17,16 +17,14 @@ import android.widget.TextView
  */
 class AnotherViewHolder(private val mItemView: View) : RecyclerView.ViewHolder(mItemView) {
 
-
     private val mViews: SparseArray<View> = SparseArray()
-
 
     /**
      *  通过 id 获取控件
      */
-    fun <T : View> getView(viewId: Int): T {
+    private fun <T : View> getView(viewId: Int): T {
 
-        var childView: View = mViews.get(viewId)
+        var childView: View? = mViews.get(viewId)
 
         if (childView == null) {
 
@@ -35,8 +33,7 @@ class AnotherViewHolder(private val mItemView: View) : RecyclerView.ViewHolder(m
             mViews.put(viewId, childView)
 
         }
-
-
+        //此处有问题 需 测试解决
         return childView as T
     }
 
@@ -53,7 +50,7 @@ class AnotherViewHolder(private val mItemView: View) : RecyclerView.ViewHolder(m
     fun setText(viewId: Int, data: String) {
 
         val textView: TextView = getView(viewId)
-        textView.setText(data)
+        textView.text = data
 
     }
 
@@ -77,7 +74,7 @@ class AnotherViewHolder(private val mItemView: View) : RecyclerView.ViewHolder(m
         /**
          *
          */
-        fun create(context: Context, layoutId: Int, parent: ViewGroup) : AnotherViewHolder {
+        fun create(context: Context, layoutId: Int, parent: ViewGroup): AnotherViewHolder {
 
             val itemView: View = LayoutInflater.from(context)
                     .inflate(layoutId, parent, false)
