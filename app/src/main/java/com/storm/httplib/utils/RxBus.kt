@@ -52,7 +52,7 @@ class RxBus private constructor() {
     /**
      * 接收背压事件
      */
-    fun <T> toFlowable(eventType: Class<T>): Flowable<T> {
+    private fun <T> toFlowable(eventType: Class<T>): Flowable<T> {
         return _mBackPressureBus.ofType(eventType)
     }
 
