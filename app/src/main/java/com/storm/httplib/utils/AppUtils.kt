@@ -11,8 +11,7 @@ import java.io.File
  */
 object AppUtils {
 
-    private val TAG : String = "AppUtils"
-
+    private val TAG: String = AppUtils.javaClass.simpleName
 
     /**
      *  获取 context

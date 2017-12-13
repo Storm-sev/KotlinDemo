@@ -21,12 +21,13 @@ class RxBus private constructor() {
 
     private val _mBackPressureBus: FlowableProcessor<Any>
 
-    private var mSubscription: MutableMap<Any, CompositeDisposable>? = null
+    private lateinit var mSubscription: MutableMap<String, CompositeDisposable>
 
 
     init {
         _mBus = PublishSubject.create<Any>().toSerialized()
         _mBackPressureBus = PublishProcessor.create<Any>().toSerialized()
+        mSubscription = HashMap()
     }
 
     /**
@@ -105,18 +106,16 @@ class RxBus private constructor() {
      * 添加订阅到集合(一般事件)
      */
     fun addSubscriptions(o: Any, disposable: Disposable) {
-        if (mSubscription == null) {
-            mSubscription = HashMap()
-        }
 
-        val key = o.javaClass.name
+        val key: String = o.javaClass.name
 
-        if (mSubscription!![key] != null) {
-            mSubscription!![key]!!.add(disposable)
+        if (mSubscription[key] != null) {
+            mSubscription[key]?.add(disposable)
+
         } else {
             val compositeDisposable = CompositeDisposable()
             compositeDisposable.add(disposable)
-            mSubscription!!.put(key, compositeDisposable)
+            mSubscription.put(key, compositeDisposable)
         }
     }
 
@@ -127,17 +126,16 @@ class RxBus private constructor() {
      */
     fun clearSubscriptions(a: Any) {
 
-        if (mSubscription == null) return
-
+        if (mSubscription.isEmpty()) return
         val key = a.javaClass.name
 
-        if (!mSubscription!!.containsKey(key)) return
+        if (!mSubscription.containsKey(key)) return
 
-        if (mSubscription!![key] != null) {
-            mSubscription!![key]!!.dispose()
+        if (mSubscription[key] != null) {
+            mSubscription[key]?.dispose()
         }
 
-        mSubscription!!.remove(key)
+        mSubscription.remove(key)
     }
 
 
