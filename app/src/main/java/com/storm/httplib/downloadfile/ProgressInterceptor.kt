@@ -1,6 +1,5 @@
-package com.storm.httplib.httpclient.interceptor
+package com.storm.httplib.downloadfile
 
-import com.storm.httplib.downloadfile.ProgressResponseBody
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException

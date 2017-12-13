@@ -1,9 +1,10 @@
 package com.storm.httplib.httpclient.manager
 
 import com.storm.httplib.downloadfile.DownLoadService
+import com.storm.httplib.downloadfile.ProgressInterceptor
 import com.storm.httplib.httpclient.Api
 import com.storm.httplib.httpclient.interceptor.CacheInterceptor
-import com.storm.httplib.httpclient.interceptor.ProgressInterceptor
+import com.storm.httplib.httpclient.service.HttpClientImgService
 import com.storm.httplib.httpclient.service.HttpClientService
 import com.storm.httplib.utils.AppUtils
 import com.storm.kotlindemo.utils.LogUtils
@@ -98,6 +99,17 @@ object HttpClientManager {
         return mRetrofit.create(clazz)
     }
 
+
+    /**
+     * 资源接口
+     */
+    val getHttpClientImgService: HttpClientImgService
+        get() {
+
+            return mRetrofit.newBuilder()
+                    .baseUrl(Api.BASE_IMG_URL)
+                    .build().create(HttpClientImgService::class.java)
+        }
 
 //
 //    private fun initRetrofit(): Retrofit? {
