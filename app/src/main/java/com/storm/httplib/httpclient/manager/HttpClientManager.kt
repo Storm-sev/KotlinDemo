@@ -4,6 +4,7 @@ import com.storm.httplib.downloadfile.DownLoadService
 import com.storm.httplib.httpclient.Api
 import com.storm.httplib.httpclient.interceptor.CacheInterceptor
 import com.storm.httplib.httpclient.interceptor.ProgressInterceptor
+import com.storm.httplib.httpclient.service.HttpClientService
 import com.storm.httplib.utils.AppUtils
 import com.storm.kotlindemo.utils.LogUtils
 import okhttp3.Cache
@@ -25,9 +26,11 @@ object HttpClientManager {
     private val TAG = HttpClientManager.javaClass.simpleName
 
     private lateinit var httpClient: OkHttpClient
+    private
 
-    //双重锁定
-    private val mRetrofit: Retrofit by lazy { initRetrofit() }
+
+            //双重锁定
+    val mRetrofit: Retrofit by lazy { initRetrofit() }
 
 
     private fun initRetrofit(): Retrofit {
@@ -78,7 +81,22 @@ object HttpClientManager {
         }
 
 
+    /**
+     * 获取网络数据请求接口
+     */
+    val getHttpClientService: HttpClientService
+        get() {
 
+            return getHttpService(HttpClientService::class.java)
+        }
+
+
+    /**
+     *  获取请求接口
+     */
+    fun <T> getHttpService(clazz: Class<T>): T {
+        return mRetrofit.create(clazz)
+    }
 
 
 //
