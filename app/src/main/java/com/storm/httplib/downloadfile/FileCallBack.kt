@@ -1,11 +1,15 @@
 package com.storm.httplib.downloadfile
 
+import com.storm.httplib.utils.CloseUtils
 import com.storm.httplib.utils.RxBus
 import com.storm.kotlindemo.utils.LogUtils
 import okhttp3.ResponseBody
 import org.reactivestreams.Subscriber
 import org.reactivestreams.Subscription
 import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
 
 /**
  * Created by Administrator on 2017/12/13.
@@ -34,18 +38,48 @@ abstract class FileCallBack<T>(private val fileDir: String, private val fileName
      */
     fun saveFile(body: ResponseBody) {
 
+        var ins: InputStream? = null
+        var fos: FileOutputStream? = null
+        val buff: ByteArray = ByteArray(2048)
+        var len: Int = 0
 
-        val dir = File(fileDir)
+        try {
+            val dir = File(fileDir)
 
-        if (!dir.exists()) {
-            dir.mkdirs()
+            if (!dir.exists()) {
+                dir.mkdirs()
+            }
+
+            val file = File(dir, fileName)
+
+            ins = body.byteStream()
+
+            fos = FileOutputStream(file)
+
+            while ((ins.read(buff).apply { len = this }) != -1) {
+                fos.write(buff, 0, len)
+            }
+
+            fos.flush()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } finally {
+            CloseUtils.closeIO(ins, fos)
         }
+        // 解除订阅
+        unSubscribe()
 
-        val file = File(dir, fileName)
-
-        // 文件操作流---------------------------------------------------------------
+    }
 
 
+    /**
+     * 解除订阅
+     */
+    private fun unSubscribe() {
+        if (RxBus.instance.hasSubscribers(true)) {
+
+            RxBus.instance.unSubscription()
+        }
     }
 
 
