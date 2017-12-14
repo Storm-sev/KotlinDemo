@@ -1,4 +1,4 @@
-package com.storm.httplib.utils
+package com.storm.httplib.httpclient
 
 import io.reactivex.FlowableTransformer
 import io.reactivex.ObservableTransformer
