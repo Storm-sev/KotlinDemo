@@ -1,5 +1,6 @@
 package com.storm.httplib.utils
 
+import com.storm.httplib.httpclient.RxHelper
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
