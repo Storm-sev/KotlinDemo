@@ -1,4 +1,4 @@
-package com.storm.kotlindemo.adapter;
+package com.storm.kotlindemo.app;
 
 import android.support.v7.widget.RecyclerView;
 

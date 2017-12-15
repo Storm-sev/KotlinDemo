@@ -68,8 +68,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
-
+    //--------------文件流测试
     /**
      * 测验 移动图片
      */
