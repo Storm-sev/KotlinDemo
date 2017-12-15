@@ -17,7 +17,6 @@ import android.widget.RelativeLayout
  */
 abstract class BaseAdapter<T>(protected val mContext: Context, protected val mIsOpenLoadMore: Boolean) : RecyclerView.Adapter<AnotherViewHolder>() {
 
-
     /**
      * 数据级
      */
@@ -32,20 +31,18 @@ abstract class BaseAdapter<T>(protected val mContext: Context, protected val mIs
     protected var mLoadingView: View? = null
 
     protected var mLoadFailView: View? = null
-    protected var mLoadEndView: View? = null
 
+    protected var mLoadEndView: View? = null
 
     init {
         mDatas = ArrayList()
     }
-
 
     /**
      * createViewHolder
      */
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): AnotherViewHolder? {
         var viewHolder: AnotherViewHolder? = null
-
         when (viewType) {
             TYPE_FOOTER -> {
                 if (mFooterLayout == null) {
@@ -78,9 +75,7 @@ abstract class BaseAdapter<T>(protected val mContext: Context, protected val mIs
             return TYPE_FOOTER
         else
             return getViewType(position, mDatas?.get(position))
-
     }
-
 
     abstract fun getViewType(position: Int, t: T?): Int
 
@@ -92,18 +87,12 @@ abstract class BaseAdapter<T>(protected val mContext: Context, protected val mIs
         return mIsOpenLoadMore && position >= itemCount - 1
     }
 
-
     override fun getItemCount(): Int {
         return if (mDatas != null) mDatas!!.size + footerCount else 0
     }
 
     protected val footerCount: Int
-        get() {
-
-            return if (mIsOpenLoadMore && !mDatas!!.isEmpty()) 1 else 0
-
-        }
-
+        get() = if (mIsOpenLoadMore && !mDatas!!.isEmpty()) 1 else 0
 
     /**
      * staggeredGridLayoutManager 加载更多可以占据一行
@@ -135,8 +124,6 @@ abstract class BaseAdapter<T>(protected val mContext: Context, protected val mIs
         }
 
         startLoadMore(recyclerView, layoutManager)
-
-
     }
 
     /**
@@ -157,7 +144,6 @@ abstract class BaseAdapter<T>(protected val mContext: Context, protected val mIs
                 } else if (isAutoLoadMore) {
                     isAutoLoadMore = false
                 }
-
             }
 
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
@@ -169,9 +155,7 @@ abstract class BaseAdapter<T>(protected val mContext: Context, protected val mIs
                 }
             }
         })
-
     }
-
 
     /**
      * 开启加载更多
@@ -185,7 +169,6 @@ abstract class BaseAdapter<T>(protected val mContext: Context, protected val mIs
         }
 
     }
-
 
     /**
      *  获取显示最后的item
@@ -209,7 +192,6 @@ abstract class BaseAdapter<T>(protected val mContext: Context, protected val mIs
         return -1
     }
 
-
     /**
      * loading View for view
      */
@@ -225,9 +207,7 @@ abstract class BaseAdapter<T>(protected val mContext: Context, protected val mIs
         if (viewId <= 0) {
             return
         }
-
         this.mLoadingView = layoutInflaterToView(viewId)
-
     }
 
     /**
@@ -237,13 +217,11 @@ abstract class BaseAdapter<T>(protected val mContext: Context, protected val mIs
     private fun layoutInflaterToView(@LayoutRes viewId: Int): View =
             LayoutInflater.from(mContext).inflate(viewId, null)
 
-
     /**
      * load fail view for view
      */
     fun setLoadFailView(loadFailView: View) {
         addFooterView(loadFailView)
-
     }
 
     /**
@@ -253,7 +231,6 @@ abstract class BaseAdapter<T>(protected val mContext: Context, protected val mIs
         if (viewId <= 0) {
             return
         }
-
         this.mLoadFailView = layoutInflaterToView(viewId)
     }
 
@@ -264,7 +241,6 @@ abstract class BaseAdapter<T>(protected val mContext: Context, protected val mIs
         addFooterView(loadEndView)
     }
 
-
     /**
      *  load end view for layoutId
      */
@@ -273,10 +249,8 @@ abstract class BaseAdapter<T>(protected val mContext: Context, protected val mIs
         if (viewId <= 0) {
             return
         }
-
         this.mLoadEndView = layoutInflaterToView(viewId)
     }
-
 
     fun addFooterView(footView: View) {
 
@@ -293,7 +267,6 @@ abstract class BaseAdapter<T>(protected val mContext: Context, protected val mIs
         mFooterLayout!!.addView(footView)
     }
 
-
     /**
      * remove all foot View
      */
@@ -303,12 +276,10 @@ abstract class BaseAdapter<T>(protected val mContext: Context, protected val mIs
         }
     }
 
-
     // loadmore interface
     interface OnLoadMoreListener {
         fun onLoadMore(b: Boolean)
     }
-
 
     // 伴生对象
     companion object {
@@ -319,8 +290,5 @@ abstract class BaseAdapter<T>(protected val mContext: Context, protected val mIs
         val LOAD_FAIL = 10002    //加载失败
         val LOAD_END = 10003     // 加载结束
 
-
     }
-
-
 }
