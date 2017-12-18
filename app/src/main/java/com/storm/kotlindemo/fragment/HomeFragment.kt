@@ -61,7 +61,6 @@ class HomeFragment : Fragment() {
         homeRefresh = view.srl_homeRefresh
         rv_home.layoutManager = GridLayoutManager(context, 2)
 
-        adapter = AnotherAdapter()
 
 
     }

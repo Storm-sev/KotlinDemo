@@ -2,7 +2,7 @@ package com.storm.httplib.httpclient.manager
 
 import com.storm.httplib.downloadfile.DownLoadService
 import com.storm.httplib.downloadfile.ProgressInterceptor
-import com.storm.httplib.httpclient.Api
+import com.storm.httplib.httpclient.api.Api
 import com.storm.httplib.httpclient.interceptor.CacheInterceptor
 import com.storm.httplib.httpclient.service.HttpClientImgService
 import com.storm.httplib.httpclient.service.HttpClientService
@@ -57,7 +57,7 @@ object HttpClientManager {
 
 
         return Retrofit.Builder()
-                .baseUrl(Api.BASE_URL)
+                .baseUrl(Api.BASE_SHOP_URL)
                 .client(httpClient)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())

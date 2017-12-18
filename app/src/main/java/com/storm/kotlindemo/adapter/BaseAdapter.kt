@@ -15,7 +15,7 @@ import android.widget.RelativeLayout
  * Created by Administrator on 2017/12/15.
  *  所有基类的adapter
  */
-abstract class BaseAdapter<T>(protected val mContext: Context, protected val mIsOpenLoadMore: Boolean) : RecyclerView.Adapter<AnotherViewHolder>() {
+abstract open class BaseAdapter<T>(protected open val mContext: Context, protected val mIsOpenLoadMore: Boolean) : RecyclerView.Adapter<AnotherViewHolder>() {
 
     /**
      * 数据级
@@ -54,7 +54,6 @@ abstract class BaseAdapter<T>(protected val mContext: Context, protected val mIs
         return viewHolder
     }
 
-
     /**
      * 判断是否是常规类型
      */
@@ -62,19 +61,20 @@ abstract class BaseAdapter<T>(protected val mContext: Context, protected val mIs
 
     // 返回需要的item
     fun getItem(position: Int): T? {
-        if (mDatas!!.isEmpty())
+        if (mDatas!!.isEmpty()) {
             return null
-        else
-            return mDatas!![position]
-
+        } else {
+        }
+        return mDatas!![position]
     }
 
     override fun getItemViewType(position: Int): Int {
 
-        if (isFooterView(position))
+        if (isFooterView(position)) {
             return TYPE_FOOTER
-        else
-            return getViewType(position, mDatas?.get(position))
+        } else {
+        }
+        return getViewType(position, mDatas?.get(position))
     }
 
     abstract fun getViewType(position: Int, t: T?): Int
@@ -275,6 +275,71 @@ abstract class BaseAdapter<T>(protected val mContext: Context, protected val mIs
             mFooterLayout!!.removeAllViews()
         }
     }
+
+
+    /**
+     * 初始化数据 以及刷新功能
+     */
+    public fun refreshData(datas: List<T>?) {
+        if (datas != null && datas.isNotEmpty()) {
+            mDatas?.clear()
+            mDatas?.addAll(datas)
+            notifyDataSetChanged()
+        }
+
+    }
+
+
+    /**
+     * 上拉加载更多添加数据
+     */
+    public fun refreshLoadMoreData(datas: List<T>?) {
+        if (datas != null && datas.isNotEmpty()) {
+            mDatas?.addAll(datas)
+        }
+    }
+
+
+    public fun setFooterViewState(loadState: Int) {
+        when (loadState) {
+
+            LOAD_LOADING -> {
+                mLoadingView.let {
+                    if (it != null) {
+                        setLoadingView(it)
+                    }
+                }
+            }
+
+            LOAD_FAIL -> {
+                mLoadFailView.let {
+                    if (it != null) {
+                        setLoadFailView(it)
+                    }
+                }
+            }
+
+
+            LOAD_END -> {
+                mLoadEndView.let {
+                    if (it != null) {
+                        setLoadEndView(it)
+                    }
+                }
+            }
+
+        }
+    }
+
+
+    /**
+     * 设置监听
+     */
+    public fun setOnLoadMoreListener(onLoadMoreListener: OnLoadMoreListener) {
+        this.mOnLoadMoreListener = onLoadMoreListener
+
+    }
+
 
     // loadmore interface
     interface OnLoadMoreListener {

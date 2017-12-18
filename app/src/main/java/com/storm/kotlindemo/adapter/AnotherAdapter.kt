@@ -1,54 +1,24 @@
 package com.storm.kotlindemo.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
-import android.view.ViewGroup
-import android.widget.ImageView
+import com.storm.kotlindemo.bean.HomeBean
 
 
 /**
  * Created by Administrator on 2017/12/7.
  *
  */
-class AnotherAdapter(private var mContext: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-    // 数据
-    val datas = arrayListOf<Any>()
+class AnotherAdapter(override var mContext:Context, var isOpenloadMore:Boolean) : BaseAdapter<HomeBean>(mContext,isOpenloadMore){
 
 
-    //获取类型
-    override fun getItemViewType(position: Int): Int {
 
-        when (position) {
-
-//            itemCount ->
-        }
-
-
-        return super.getItemViewType(position)
+    override fun getViewType(position: Int, t: HomeBean?): Int {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-
-
+    override fun onBindViewHolder(holder: AnotherViewHolder?, position: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    /**
-     * 创建 ViewHolder
-     */
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-        if (parent == null) throw IllegalAccessError("an adapter must be attach a recycleView")
-
-        return AnotherViewHolder.create(ImageView(mContext))
-    }
-
-    override fun getItemCount(): Int {
-        return datas.size + 1
-    }
-
-
-    companion object {
-        private val TAG: String = AnotherAdapter::class.java.simpleName
-    }
 
 }
