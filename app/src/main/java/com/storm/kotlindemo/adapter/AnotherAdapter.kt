@@ -12,6 +12,11 @@ class AnotherAdapter(override var mContext:Context, var isOpenloadMore:Boolean) 
 
 
 
+
+
+
+
+
     override fun getViewType(position: Int, t: HomeBean?): Int {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

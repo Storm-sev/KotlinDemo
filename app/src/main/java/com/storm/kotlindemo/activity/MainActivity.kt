@@ -43,7 +43,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun init() {
         setSupportActionBar(toolbar)
-//        setTitle("")
 
         //创建Fragment 的集合
         val fragments = ArrayList<Fragment>()
@@ -55,14 +54,12 @@ class MainActivity : AppCompatActivity() {
         val nameList = nameResList.map(this::getString)
         // 设置adapter
         viewpager.adapter = ContentPagerAdapter(fragments, nameList, supportFragmentManager)
+        viewpager.currentItem = 0
 
         tablayout.setupWithViewPager(viewpager)
 
         val instance = RxBus.instance
         LogUtils.d(TAG, "单例模式 : $instance")
-
-
-        // IO 操作 实验
 
         // moveImage()
 

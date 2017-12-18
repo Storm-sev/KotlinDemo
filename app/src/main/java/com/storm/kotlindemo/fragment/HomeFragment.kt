@@ -25,21 +25,18 @@ class HomeFragment : Fragment() {
         val AIM_URL = "http://ishuhui.net/?PageIndex=1"
     }
 
-
     lateinit var rv_home: RecyclerView
     lateinit var homeRefresh: SwipeRefreshLayout
     lateinit var adapter: AnotherAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//    }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         LogUtils.a(TAG, "oncreateView")
         return inflater?.inflate(R.layout.fragment_home, container, false)
-
     }
 
 

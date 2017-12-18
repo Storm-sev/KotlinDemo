@@ -26,6 +26,7 @@ class ContentPagerAdapter(
     override fun getPageTitle(position: Int): CharSequence? = nameList[position]
 
 
+
     override fun destroyItem(container: ViewGroup?, position: Int, `object`: Any?) {
         super.destroyItem(container, position, `object`)
     }
