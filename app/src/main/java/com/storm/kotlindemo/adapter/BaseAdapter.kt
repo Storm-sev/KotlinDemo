@@ -304,30 +304,17 @@ abstract open class BaseAdapter<T>(protected open val mContext: Context, protect
         when (loadState) {
 
             LOAD_LOADING -> {
-                mLoadingView.let {
-                    if (it != null) {
-                        setLoadingView(it)
-                    }
-                }
+                mLoadingView.let { if (it != null) setLoadingView(it) }
             }
 
             LOAD_FAIL -> {
-                mLoadFailView.let {
-                    if (it != null) {
-                        setLoadFailView(it)
-                    }
-                }
+                mLoadFailView.let { if (it != null) setLoadFailView(it) }
             }
 
 
             LOAD_END -> {
-                mLoadEndView.let {
-                    if (it != null) {
-                        setLoadEndView(it)
-                    }
-                }
+                mLoadEndView.let { if (it != null) setLoadEndView(it) }
             }
-
         }
     }
 
@@ -337,6 +324,32 @@ abstract open class BaseAdapter<T>(protected open val mContext: Context, protect
      */
     public fun setOnLoadMoreListener(onLoadMoreListener: OnLoadMoreListener) {
         this.mOnLoadMoreListener = onLoadMoreListener
+
+    }
+
+
+//    fun setLoadView()
+
+    /**
+     *  设置 上拉加载的view
+     */
+    fun setLoadView(loadingView: View, loadFailView: View, loadEndView: View) {
+        setLoadingView(loadingView)
+        setLoadFailView(loadFailView)
+        setLoadEndView(loadEndView)
+    }
+
+
+    /**
+     * 设置 加载更多的视图
+     */
+    fun setLoadView(@LayoutRes loadingViewLayoutId: Int, @LayoutRes loadFailLayoutId: Int,
+                    @LayoutRes loadEndLayoutId: Int) {
+        loadingViewLayoutId.let { if (it > 0) setLoadingView(it) }
+
+        loadFailLayoutId.let { if (it > 0) setLoadFailView(it) }
+
+        loadEndLayoutId.let { if (it > 0) setLoadEndView(it) }
 
     }
 

@@ -22,7 +22,7 @@ class AnotherViewHolder(private val mItemView: View) : RecyclerView.ViewHolder(m
     /**
      *  通过 id 获取控件
      */
-    private fun <T : View> getView(viewId: Int): T {
+    public fun <T : View> getView(viewId: Int): T {
 
         var childView: View? = mViews.get(viewId)
 
