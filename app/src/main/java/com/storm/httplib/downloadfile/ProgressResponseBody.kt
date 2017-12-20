@@ -1,5 +1,6 @@
 package com.storm.httplib.downloadfile
 
+import com.storm.httplib.utils.RxBus
 import okhttp3.MediaType
 import okhttp3.ResponseBody
 import okio.*
@@ -49,6 +50,7 @@ class ProgressResponseBody(private val responseBody: ResponseBody) : ResponseBod
                 //
                 fileLoadEvent.total = responseBody.contentLength()
                 fileLoadEvent.progress = byteReaded
+                RxBus.instance.sendByBackPressure(fileLoadEvent)
 
                 // 使用 rxbus 发送数据
                 return bytesRead

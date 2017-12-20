@@ -34,4 +34,14 @@ object AppUtils {
 
     }
 
+
+    /**
+     * 通过下载文件获取相应的文件名字
+     */
+    fun getNameFromUrl(url: String): String {
+        return url.substring(url.lastIndexOf("/") + 1)
+
+    }
+
+
 }

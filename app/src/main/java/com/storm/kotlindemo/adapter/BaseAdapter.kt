@@ -149,7 +149,7 @@ abstract open class BaseAdapter<T>(protected open val mContext: Context, protect
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    if (isAutoLoadMore && findLastVisableItemPosition(layoutManager) + 1 == itemCount) {
+                    if (!isAutoLoadMore && findLastVisableItemPosition(layoutManager) + 1 == itemCount) {
                         scrollLoadMore()
                     }
                 }
@@ -162,9 +162,9 @@ abstract open class BaseAdapter<T>(protected open val mContext: Context, protect
      */
     private fun scrollLoadMore() {
 
-        if (mFooterLayout!!.getChildAt(0) == mLoadingView) {
+        if (mFooterLayout?.getChildAt(0) == mLoadingView) {
             if (mOnLoadMoreListener != null) {
-                mOnLoadMoreListener!!.onLoadMore(false)
+                mOnLoadMoreListener?.onLoadMore(false)
             }
         }
 
@@ -189,6 +189,7 @@ abstract open class BaseAdapter<T>(protected open val mContext: Context, protect
             }
             return max
         }
+
         return -1
     }
 
@@ -232,6 +233,7 @@ abstract open class BaseAdapter<T>(protected open val mContext: Context, protect
             return
         }
         this.mLoadFailView = layoutInflaterToView(viewId)
+
     }
 
     /**
@@ -264,7 +266,7 @@ abstract open class BaseAdapter<T>(protected open val mContext: Context, protect
                 ViewGroup.LayoutParams.WRAP_CONTENT)
 
         footView.layoutParams = params
-        mFooterLayout!!.addView(footView)
+        mFooterLayout?.addView(footView)
     }
 
     /**
@@ -272,7 +274,7 @@ abstract open class BaseAdapter<T>(protected open val mContext: Context, protect
      */
     private fun removeAllFootView() {
         if (mFooterLayout != null) {
-            mFooterLayout!!.removeAllViews()
+            mFooterLayout?.removeAllViews()
         }
     }
 
@@ -296,7 +298,9 @@ abstract open class BaseAdapter<T>(protected open val mContext: Context, protect
     public fun refreshLoadMoreData(datas: List<T>?) {
         if (datas != null && datas.isNotEmpty()) {
             mDatas?.addAll(datas)
+            notifyDataSetChanged()
         }
+
     }
 
 
@@ -316,6 +320,21 @@ abstract open class BaseAdapter<T>(protected open val mContext: Context, protect
                 mLoadEndView.let { if (it != null) setLoadEndView(it) }
             }
         }
+
+        mLoadFailView.let {
+            if (it != null) {
+                it.setOnClickListener(object : View.OnClickListener{
+                    override fun onClick(p0: View?) {
+                        setFooterViewState(BaseAdapter.LOAD_LOADING)
+
+                        if (mOnLoadMoreListener != null) {
+                            mOnLoadMoreListener?.onLoadMore(true)
+                        }
+
+                    }
+                })
+            }
+        }
     }
 
 
@@ -326,9 +345,6 @@ abstract open class BaseAdapter<T>(protected open val mContext: Context, protect
         this.mOnLoadMoreListener = onLoadMoreListener
 
     }
-
-
-//    fun setLoadView()
 
     /**
      *  设置 上拉加载的view
@@ -356,7 +372,7 @@ abstract open class BaseAdapter<T>(protected open val mContext: Context, protect
 
     // loadmore interface
     interface OnLoadMoreListener {
-        fun onLoadMore(b: Boolean)
+        fun onLoadMore(isClickLoadMore: Boolean)
     }
 
     // 伴生对象
