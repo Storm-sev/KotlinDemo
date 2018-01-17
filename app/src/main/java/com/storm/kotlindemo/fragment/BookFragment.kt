@@ -8,10 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.VideoView
+import com.storm.httplib.base.BaseFragment
 import com.storm.httplib.downloadfile.FileCallBack
 import com.storm.httplib.httpclient.HttpManager
 import com.storm.httplib.utils.AppUtils
 import com.storm.kotlindemo.R
+import com.storm.kotlindemo.R.id.btn_download_apk
 import com.storm.kotlindemo.utils.LogUtils
 import kotlinx.android.synthetic.main.fragment_book.view.*
 import okhttp3.ResponseBody
@@ -19,49 +22,38 @@ import java.io.File
 
 /**
  * Created by Administrator on 2017/12/6.
+ *
  */
-class BookFragment : Fragment() {
+class BookFragment : BaseFragment() {
 
+    companion object {
+        val TAG = BookFragment.javaClass.simpleName.toString()
+    }
 
     lateinit var btn_download_apk: Button
-    lateinit var mContext: Context
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mContext = context
-    }
-
-
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_book, container, false)
-
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initView(view)
-    }
-
-    private fun initView(view: View) {
+    override fun initView(view: View) {
 
         btn_download_apk = view.btn_download_apk
 
-
-        setUpListener()
-
-
     }
 
-    private fun setUpListener() {
+    override fun setUpListener() {
 
         btn_download_apk.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-
+            override fun onClick(v: View?) {
                 downLoadApk()
-
             }
 
         })
+    }
+
+    override fun attachLayoutRes(): Int {
+        return R.layout.fragment_book
+    }
+
+    override fun initData() {
+
 
     }
 
@@ -78,12 +70,12 @@ class BookFragment : Fragment() {
 
         ) {
             override fun onSuccess(t: ResponseBody) {
-                LogUtils.d(TAG,"onsuccess")
+                LogUtils.d(TAG, "onsuccess")
 
             }
 
             override fun onStart() {
-                LogUtils.d(TAG,"onstart")
+                LogUtils.d(TAG, "onstart")
             }
 
             override fun onComplete() {
@@ -98,24 +90,16 @@ class BookFragment : Fragment() {
             }
 
             override fun onError(e: Throwable) {
-                LogUtils.d(TAG,"onError")
+                LogUtils.d(TAG, "onError")
             }
 
             override fun onProgress(progress: Float, total: Long) {
-                LogUtils.d(TAG,"onProgress")
+                LogUtils.d(TAG, "onProgress")
 
-                val  progress = (progress * 100).toInt().toString() + "%"
-                LogUtils.d(TAG,progress)
+                val progress = (progress * 100).toInt().toString() + "%"
+                LogUtils.d(TAG, progress)
             }
-
         })
-
-    }
-
-
-    companion object {
-        private val TAG: String = "BookFragment"
-
     }
 
 

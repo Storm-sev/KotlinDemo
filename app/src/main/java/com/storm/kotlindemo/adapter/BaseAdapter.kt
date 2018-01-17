@@ -164,7 +164,7 @@ abstract open class BaseAdapter<T>(protected open val mContext: Context, protect
 
         if (mFooterLayout?.getChildAt(0) == mLoadingView) {
             if (mOnLoadMoreListener != null) {
-                mOnLoadMoreListener?.onLoadMore(false)
+                mOnLoadMoreListener?.onLoadMore(true)
             }
         }
 

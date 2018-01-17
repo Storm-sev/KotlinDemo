@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.storm.httplib.base.BaseActivity
+import com.storm.httplib.base.BaseFragment
 import com.storm.httplib.utils.CloseUtils
 import com.storm.httplib.utils.RxBus
 import com.storm.kotlindemo.R
@@ -17,54 +19,56 @@ import com.storm.kotlindemo.utils.AppUtils
 import com.storm.kotlindemo.utils.LogUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
 
 
-class MainActivity : AppCompatActivity() {
-
+class MainActivity : BaseActivity() {
 
     companion object {
-        val TAG: String = "MainActivity"
+        val TAG: String = MainActivity.javaClass.simpleName
     }
-
 
     val nameResList: ArrayList<Int> = arrayListOf(R.string.tab_one, R.string.tab_two, R.string.tab_three)
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        init()
-
-    }
-
-    private fun init() {
+    override fun initViews() {
         setSupportActionBar(toolbar)
-
-        //创建Fragment 的集合
-        val fragments = ArrayList<Fragment>()
+        val fragments = ArrayList<BaseFragment>()
 
         fragments.add(HomeFragment())
         fragments.add(BookFragment())
         fragments.add(NewsFragment())
 
         val nameList = nameResList.map(this::getString)
-        // 设置adapter
+
         viewpager.adapter = ContentPagerAdapter(fragments, nameList, supportFragmentManager)
         viewpager.currentItem = 0
 
         tablayout.setupWithViewPager(viewpager)
-
         val instance = RxBus.instance
-        LogUtils.d(TAG, "单例模式 : $instance")
 
-        // moveImage()
-
+        LogUtils.d(TAG,"检验Rxbus的单例模式 $instance")
+        //可行
+//        moveImage()
 
     }
+
+    override fun initData() {
+    }
+
+    override fun setupListener() {
+    }
+
+    override fun attachLayoutRes(): Int {
+        return R.layout.activity_main
+    }
+
+
+
     //--------------文件流测试-------
     /**
      * 测验 移动图片
@@ -89,7 +93,6 @@ class MainActivity : AppCompatActivity() {
 
             fos = FileOutputStream(file)
             while (inputStream.read(buff).apply { len = this } != -1) {
-                LogUtils.d(TAG, "执行tm -----------------------------------")
                 fos.write(buff, 0, len)
 
             }
