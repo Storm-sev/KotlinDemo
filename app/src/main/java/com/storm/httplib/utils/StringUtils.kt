@@ -6,8 +6,10 @@ package com.storm.httplib.utils
 object StringUtils {
 
 
-    private val TAG : String = "StringUtils"
+    private val TAG : String = StringUtils::class.java.simpleName.toString()
 
+
+    
 
     fun getNameFromUrl(url: String): String {
 

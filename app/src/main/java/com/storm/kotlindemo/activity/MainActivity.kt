@@ -61,6 +61,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setupListener() {
+
     }
 
     override fun attachLayoutRes(): Int {
@@ -69,7 +70,7 @@ class MainActivity : BaseActivity() {
 
 
 
-    //--------------文件流测试-------
+    //-------------- 文件流测试 ----------
     /**
      * 测验 移动图片
      */

@@ -10,6 +10,11 @@ import com.storm.kotlindemo.R
  *
  */
 class ComicFragment : BaseFragment() {
+
+    companion object {
+        val TAG= ComicFragment::class.java.simpleName.toString()
+    }
+
     override fun attachLayoutRes(): Int {
         return R.layout.fragment_comic
     }

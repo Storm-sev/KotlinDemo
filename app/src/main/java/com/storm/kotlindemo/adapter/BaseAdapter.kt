@@ -15,7 +15,7 @@ import android.widget.RelativeLayout
  * Created by Administrator on 2017/12/15.
  *  所有基类的adapter
  */
-abstract open class BaseAdapter<T>(protected open val mContext: Context, protected val mIsOpenLoadMore: Boolean) : RecyclerView.Adapter<AnotherViewHolder>() {
+  abstract class  BaseAdapter<T>(protected open val mContext: Context, protected val mIsOpenLoadMore: Boolean) : RecyclerView.Adapter<AnotherViewHolder>() {
 
     /**
      * 数据级

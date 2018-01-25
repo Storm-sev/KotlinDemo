@@ -2,12 +2,14 @@ package com.storm.kotlindemo
 
 import android.app.Application
 import android.content.Context
+import com.storm.httplib.utils.AppUtils.appContext
 import com.storm.kotlindemo.utils.LogUtils
 
 /**
  * Created by Administrator on 2017/12/6.
  */
 class MApplication : Application() {
+
 
 
     override fun onCreate() {
@@ -30,10 +32,9 @@ class MApplication : Application() {
 
 
     companion object {
-
         lateinit var appContext: Context
-
         lateinit var mBuilder: LogUtils.Builder
     }
+
 
 }

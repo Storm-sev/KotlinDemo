@@ -27,10 +27,12 @@ import java.io.File
 class BookFragment : BaseFragment() {
 
     companion object {
-        val TAG = BookFragment.javaClass.simpleName.toString()
+        val TAG = BookFragment::class.java.simpleName.toString()
     }
 
+
     lateinit var btn_download_apk: Button
+
 
     override fun initView(view: View) {
 

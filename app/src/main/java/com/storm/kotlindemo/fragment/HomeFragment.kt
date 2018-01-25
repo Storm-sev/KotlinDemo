@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 /**
  * Created by Administrator on 2017/12/6.
  *
- * first pager
+ *  first pager
  */
 class HomeFragment : BaseFragment() {
 
@@ -26,7 +26,7 @@ class HomeFragment : BaseFragment() {
 
 
     companion object {
-        val TAG = HomeFragment.javaClass.simpleName.toString()
+        val TAG = HomeFragment::class.java.simpleName.toString()
         val AIM_URL = "http://ishuhui.net/?PageIndex=1"
     }
 
@@ -40,10 +40,10 @@ class HomeFragment : BaseFragment() {
 
         rv_home = view.rv_home
         homeRefresh = view.srl_homeRefresh
-        rv_home.layoutManager = GridLayoutManager(context,2) as RecyclerView.LayoutManager
+        rv_home.layoutManager = GridLayoutManager(context, 2) as RecyclerView.LayoutManager
         adapter = AnotherAdapter(mContext, true)
 
-        LogUtils.d(TAG,"adapter $adapter")
+        LogUtils.d(TAG, "adapter $adapter")
         adapter.setLoadView(R.layout.loading_view, R.layout.loadfail_view, R.layout.loadend_view)
         adapter.setFooterViewState(BaseAdapter.LOAD_LOADING)
 
@@ -82,7 +82,7 @@ class HomeFragment : BaseFragment() {
 
     override fun initData() {
 
-        val data  = arrayListOf<HomeBean>()
+        val data = arrayListOf<HomeBean>()
 
         for (i in 1..40) {
             val bean = HomeBean()
@@ -94,8 +94,6 @@ class HomeFragment : BaseFragment() {
 
         adapter.refreshData(data)
     }
-
-
 
 
 //    /**

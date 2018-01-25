@@ -3,9 +3,12 @@ package com.storm.kotlindemo.activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import android.view.View
+import android.widget.VideoView
 import com.storm.httplib.base.BaseActivity
 import com.storm.kotlindemo.R
 import com.storm.kotlindemo.R.id.collapsing_toolbar
+import com.storm.kotlindemo.R.id.titleBar
 import kotlinx.android.synthetic.main.activity_about.*
 
 /**
@@ -32,6 +35,12 @@ class AboutActivity : BaseActivity() {
 
     override fun setupListener() {
 
+        titleBar.setNavigationOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                // 关闭本页面
+                finish()
+            }
+        })
 
     }
 

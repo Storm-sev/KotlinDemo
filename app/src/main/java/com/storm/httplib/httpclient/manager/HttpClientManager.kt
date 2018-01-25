@@ -47,6 +47,7 @@ object HttpClientManager {
 
         httpClient = OkHttpClient.Builder()
                 .cache(cache)
+//                .cookieJar( ) // 添加 cookie
                 .addInterceptor(cacheInterceptor)
                 .retryOnConnectionFailure(true)
                 .addInterceptor(httpLoggingInterceptor)

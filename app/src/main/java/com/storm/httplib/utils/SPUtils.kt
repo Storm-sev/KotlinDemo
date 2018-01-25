@@ -17,108 +17,108 @@ class SPUtils private constructor(spName: String) {
     }
 
 
-    private val all: Map<String, *>
+     val all: Map<String, *>
         get() = sp.all
 
     /**
      * 存储 String 类型的值
      */
-    private fun put(key: String, value: String?)
+    fun put(key: String, value: String?)
             = sp.edit().putString(key, value).apply()
 
     /**
      * 读取sp中String
      */
-    private fun getString(key: String): String =
+     fun getString(key: String): String =
             sp.getString(key, "")
 
     /**
      * 读取sp中的String类型的值, 如果不存在 返回默认值
      */
-    private fun getString(key: String, defaultValue: String): String =
+     fun getString(key: String, defaultValue: String): String =
             sp.getString(key, defaultValue)
 
     /**
      * 存储int类型的值
      */
-    private fun put(key: String, value: Int) =
+     fun put(key: String, value: Int) =
             sp.edit().putInt(key, value).apply()
 
     /**
      * 读取sp中的int值 没有返回 -1
      */
-    private fun getInt(key: String): Int =
+     fun getInt(key: String): Int =
             sp.getInt(key, -1)
 
     /**
      * 获取sp中的int值, 没有返回默认值
      */
-    private fun getInt(key: String, defaultValue: Int): Int =
+     fun getInt(key: String, defaultValue: Int): Int =
             sp.getInt(key, defaultValue)
 
     /**
      * 存储float类型的值
      */
-    private fun put(key: String, value: Float) =
+     fun put(key: String, value: Float) =
             sp.edit().putFloat(key, value).apply()
 
     /**
      * 读取sp中的值, 没有返回-1f
      */
-    private fun getFloat(key: String): Float =
+     fun getFloat(key: String): Float =
             sp.getFloat(key, -1F)
 
     /**
      * 读取float值 返回默认值
      */
-    private fun getFloat(key: String, defaultValue: Float): Float =
+     fun getFloat(key: String, defaultValue: Float): Float =
             sp.getFloat(key, defaultValue)
 
     /**
      * 存储long值
      */
-    private fun put(key: String, value: Long) =
+     fun put(key: String, value: Long) =
             sp.edit().putLong(key, value).apply()
 
     /**
      * 读取Long值 没有返回-1
      *
      */
-    private fun getLong(key: String): Long =
+     fun getLong(key: String): Long =
             sp.getLong(key, -1L)
 
     /**
      * 读取long值 返回默认值
      */
-    private fun getLong(key: String, defaultValue: Long): Long =
+     fun getLong(key: String, defaultValue: Long): Long =
             sp.getLong(key, defaultValue)
 
     /**
      * 存储boolean值
      */
-    private fun put(key: String, value: Boolean) =
+     fun put(key: String, value: Boolean) =
             sp.edit().putBoolean(key, value).apply()
 
     /**
      * 读取boolean值 返回false或者默认
      */
-    private fun getBoolean(key: String): Boolean =
+     fun getBoolean(key: String): Boolean =
             sp.getBoolean(key, false)
 
 
-    private fun getBoolean(key: String, defaultValue: Boolean): Boolean =
+     fun getBoolean(key: String, defaultValue: Boolean): Boolean =
             sp.getBoolean(key, defaultValue)
 
     /**
      * 移除相应的key
      */
-    private fun remove(key: String) =
+     fun remove(key: String) =
             sp.edit().remove(key).apply()
 
     /**
      * 清除sp的值
      */
-    private fun clear() =
+     fun clear() =
             sp.edit().clear().apply()
 
     /**
@@ -138,7 +138,7 @@ class SPUtils private constructor(spName: String) {
         /**
          * 获取相应的spUtils
          */
-        private fun getInstance(spName: String): SPUtils {
+        public  fun getInstance(spName: String): SPUtils {
             var spName = spName
 
             if (isSpace(spName)) {
