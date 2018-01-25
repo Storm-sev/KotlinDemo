@@ -20,11 +20,9 @@ class ProgressResponseBody(private val responseBody: ResponseBody) : ResponseBod
     }
 
 
-    override fun contentLength(): Long
-            = responseBody.contentLength()
+    override fun contentLength(): Long = responseBody.contentLength()
 
-    override fun contentType(): MediaType?
-            = responseBody.contentType()
+    override fun contentType(): MediaType? = responseBody.contentType()
 
 
     override fun source(): BufferedSource? {
@@ -44,10 +42,10 @@ class ProgressResponseBody(private val responseBody: ResponseBody) : ResponseBod
 
             override fun read(sink: Buffer?, byteCount: Long): Long {
 
-                val bytesRead : Long = super.read(sink, byteCount)
+                val bytesRead: Long = super.read(sink, byteCount)
                 byteReaded += if (bytesRead == -1L) 0 else bytesRead
 
-                //
+                //获取文件的总长度 和进度
                 fileLoadEvent.total = responseBody.contentLength()
                 fileLoadEvent.progress = byteReaded
                 RxBus.instance.sendByBackPressure(fileLoadEvent)
@@ -57,7 +55,6 @@ class ProgressResponseBody(private val responseBody: ResponseBody) : ResponseBod
             }
 
         }
-
 
     }
 

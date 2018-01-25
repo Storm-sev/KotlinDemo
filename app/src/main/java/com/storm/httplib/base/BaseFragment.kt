@@ -10,12 +10,12 @@ import com.storm.kotlindemo.utils.LogUtils
 
 /**
  * Created by stormzhang on 2018/1/16.
- * Fragment 基类 的使用
+ * Fragment 基类
  */
 abstract class BaseFragment : Fragment() {
 
     companion object {
-        public val TAG = BaseFragment.javaClass.simpleName.toString()
+        public val TAG = BaseFragment::class.java.simpleName.toString()
     }
 
     protected lateinit var mContext: Context

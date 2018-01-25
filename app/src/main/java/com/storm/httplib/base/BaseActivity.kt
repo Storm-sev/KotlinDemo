@@ -13,7 +13,7 @@ import android.support.v7.app.AppCompatActivity
  abstract class BaseActivity : AppCompatActivity() {
 
     companion object {
-        var TAG = BaseActivity.javaClass.simpleName.toString()
+        var TAG = BaseActivity::class.java.simpleName.toString()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

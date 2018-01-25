@@ -15,7 +15,7 @@ import java.lang.reflect.Method
  */
 object NetWorkUtils {
 
-    private val TAG = NetWorkUtils.javaClass.simpleName
+    private val TAG = NetWorkUtils::class.java.simpleName.toString()
 
 
     public enum class NetworkType {
